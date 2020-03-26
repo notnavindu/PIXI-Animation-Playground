@@ -58,27 +58,24 @@ function startup() {
 }
 
 function turn(avatar, mask, ds) {
-  const e = Ease.ease.add(
+  //animate the avatar rotation
+  const avatarEase = Ease.ease.add(
     avatar,
     { rotation: 0 },
     { duration: 800, ease: "easeOutQuad" }
-  ); //, removeExisting })
-  e.once("complete", () => {
-    console.log("done");
-  });
-  const m = Ease.ease.add(
+  );
+  //animate the mask scale
+  const maskEase = Ease.ease.add(
     mask,
     { scale: 0.5 },
     { duration: 800, ease: "easeOutQuad" }
-  ); //, removeExisting })
-  m.once("complete", () => {
+  );
+  //after animating the  mask, animate the drop shadow filter
+  maskEase.once("complete", () => {
     const a = Ease.ease.add(
       ds,
       { alpha: 0.5 },
       { duration: 500, ease: "easeOutQuad" }
-    ); //, removeExisting })
-    a.once("complete", () => {
-      console.log("done");
-    });
+    );
   });
 }
